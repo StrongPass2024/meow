@@ -216,6 +216,7 @@ h2 {
   color: var(--muted);
   line-height: 2;
   margin: 14px 0 24px;
+  font-size: 16px;
 }
 #passwordForm {
   display: flex;
@@ -226,6 +227,7 @@ h2 {
 #passwordForm label {
   font-size: 13px;
   color: #d5d9e9;
+  margin-left: 4px;
 }
 #passwordInput {
   width: 100%;
@@ -276,7 +278,7 @@ h2 {
 }
 .tiny-note {
   color: #8492b2;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 25px;
 }
 .book-screen {

@@ -2,8 +2,7 @@
 const CORRECT_PASSWORD = "meow";
 
 // ลิงก์เพลง Spotify ของคุณ
-const SONG_URL =
-  "https://open.spotify.com/intl-th/track/51EN90GQ1JhX7n1noAB0s4?autoplay_ok=1";
+const SONG_URL = "https://open.spotify.com/track/6uS1yKSfktHNN7o4AradRV";
 
 const lockScreen = document.querySelector("#lockScreen");
 const bookScreen = document.querySelector("#bookScreen");
@@ -18,36 +17,39 @@ const bookStage = document.querySelector(".book-stage");
 
 let currentPage = 0;
 
-// แปลงลิงก์ Spotify เป็นลิงก์สำหรับฝังในเว็บ
+
 function getSpotifyEmbedUrl(url) {
   try {
     const parsedUrl = new URL(url);
 
-    if (
-      parsedUrl.hostname !== "open.spotify.com" &&
-      parsedUrl.hostname !== "spotify.com"
-    ) {
+    if (parsedUrl.hostname !== "open.spotify.com") {
       return "";
     }
 
     const parts = parsedUrl.pathname.split("/").filter(Boolean);
-    const trackIndex = parts.indexOf("track");
 
-    if (trackIndex === -1 || !parts[trackIndex + 1]) {
+    // รองรับทั้งเพลง (track) และอัลบั้ม (album)
+    const typeIndex = parts.findIndex(
+      (part) => part === "track" || part === "album"
+    );
+
+    if (typeIndex === -1 || !parts[typeIndex + 1]) {
       return "";
     }
 
-    const trackId = parts[trackIndex + 1];
+    const type = parts[typeIndex];
+    const id = parts[typeIndex + 1];
 
-    if (!/^[a-zA-Z0-9]+$/.test(trackId)) {
+    if (!/^[a-zA-Z0-9]+$/.test(id)) {
       return "";
     }
 
-    return `https://open.spotify.com/embed/track/${trackId}`;
+    return `https://open.spotify.com/embed/${type}/${id}`;
   } catch {
     return "";
   }
 }
+
 
 // ตั้งค่าเพลง
 if (musicFrame) {
