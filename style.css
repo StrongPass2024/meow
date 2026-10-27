@@ -13,6 +13,39 @@
 }
 
 
+
+/* พื้นที่สำหรับพลิกหน้าหนังสือ */
+.book-stage {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.book-stage:active {
+  cursor: grabbing;
+}
+
+/* แอนิเมชันพลิกกระดาษ */
+.page {
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition:
+    transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 900ms ease;
+}
+
+/* ข้อความแนะนำ */
+.swipe-hint {
+  color: #d9d3ef;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 18px;
+}
+
+
+
 /* เครื่องเล่นเพลงในหน้าหนังสือ */
 .music-player {
   position: relative;

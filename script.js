@@ -1,8 +1,9 @@
 
 const CORRECT_PASSWORD = "meow";
 
-// ลิงก์เพลง YouTube Music ของคุณ
-const SONG_URL = "https://open.spotify.com/intl-th/track/51EN90GQ1JhX7n1noAB0s4?autoplay_ok=1";
+// ลิงก์เพลง Spotify ของคุณ
+const SONG_URL =
+  "https://open.spotify.com/intl-th/track/51EN90GQ1JhX7n1noAB0s4?autoplay_ok=1";
 
 const lockScreen = document.querySelector("#lockScreen");
 const bookScreen = document.querySelector("#bookScreen");
@@ -10,15 +11,14 @@ const passwordForm = document.querySelector("#passwordForm");
 const passwordInput = document.querySelector("#passwordInput");
 const passwordMessage = document.querySelector("#passwordMessage");
 const pages = [...document.querySelectorAll(".page")];
-const prevButton = document.querySelector("#prevPage");
-const nextButton = document.querySelector("#nextPage");
 const pageCounter = document.querySelector("#pageCounter");
 const lockAgainButton = document.querySelector("#lockAgain");
 const musicFrame = document.querySelector("#musicFrame");
+const bookStage = document.querySelector(".book-stage");
 
 let currentPage = 0;
 
-
+// แปลงลิงก์ Spotify เป็นลิงก์สำหรับฝังในเว็บ
 function getSpotifyEmbedUrl(url) {
   try {
     const parsedUrl = new URL(url);
@@ -49,45 +49,13 @@ function getSpotifyEmbedUrl(url) {
   }
 }
 
+// ตั้งค่าเพลง
 if (musicFrame) {
   const embedUrl = getSpotifyEmbedUrl(SONG_URL);
 
   if (embedUrl) {
     musicFrame.src = embedUrl;
-  }
-}
-
-// แปลงลิงก์ YouTube ให้เป็นลิงก์สำหรับฝังในเว็บ
-function getYouTubeEmbedUrl(url) {
-  try {
-    const parsedUrl = new URL(url);
-    const host = parsedUrl.hostname.replace(/^www\./, "");
-
-    let videoId = "";
-
-    if (host === "music.youtube.com" || host === "youtube.com" ||
-        host === "m.youtube.com") {
-      videoId = parsedUrl.searchParams.get("v") || "";
-    } else if (host === "youtu.be") {
-      videoId = parsedUrl.pathname.slice(1).split("/")[0];
-    }
-
-    if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
-      return "";
-    }
-
-    return `https://www.youtube.com/embed/${videoId}`;
-  } catch {
-    return "";
-  }
-}
-
-// ตั้งค่าเพลงในหน้าหนังสือ
-if (musicFrame) {
-  const embedUrl = getYouTubeEmbedUrl(SONG_URL);
-
-  if (embedUrl) {
-    musicFrame.src = embedUrl;
+    musicFrame.title = "Spotify music player";
   } else {
     musicFrame.title = "ไม่พบลิงก์เพลงที่ถูกต้อง";
   }
@@ -100,12 +68,15 @@ passwordForm.addEventListener("submit", (event) => {
   if (passwordInput.value === CORRECT_PASSWORD) {
     lockScreen.classList.add("hidden");
     bookScreen.classList.remove("hidden");
+
     passwordMessage.textContent = "";
     passwordInput.value = "";
+
     updateBook();
   } else {
     passwordMessage.textContent =
       "ລະຫັດບໍ່ຖືກນະລອງເດົາໃໝ່ອິອິ";
+
     passwordInput.value = "";
     passwordInput.focus();
   }
@@ -116,15 +87,13 @@ function updateBook() {
   pages.forEach((page, index) => {
     page.classList.toggle("flipped", index < currentPage);
 
-    page.style.zIndex = index < currentPage
-      ? index + 1
-      : pages.length - index;
+    page.style.zIndex =
+      index < currentPage
+        ? index + 1
+        : pages.length - index;
   });
 
-  prevButton.disabled = currentPage === 0;
-  nextButton.disabled = currentPage === pages.length - 1;
-
-  // แสดงเลขหน้า เฉพาะเมื่อมี element นี้ใน HTML
+  // แสดงเลขหน้า หากมี element นี้ใน HTML
   if (pageCounter) {
     if (currentPage === 0) {
       pageCounter.textContent = "ปกหน้า";
@@ -137,21 +106,65 @@ function updateBook() {
   }
 }
 
-// พลิกไปหน้าถัดไป
-nextButton.addEventListener("click", () => {
-  if (currentPage < pages.length - 1) {
-    currentPage++;
-    updateBook();
-  }
-});
+// ปัดหน้าหนังสือด้วยเมาส์หรือหน้าจอสัมผัส
+if (bookStage) {
+  let startX = 0;
+  let startY = 0;
+  let isDragging = false;
 
-// พลิกกลับหน้าก่อนหน้า
-prevButton.addEventListener("click", () => {
-  if (currentPage > 0) {
-    currentPage--;
-    updateBook();
-  }
-});
+  bookStage.addEventListener("pointerdown", (event) => {
+    // ไม่ให้การลากไปรบกวนเครื่องเล่นเพลงหรือปุ่ม
+    if (
+      event.target.closest(
+        "iframe, button, a, input, textarea, select"
+      )
+    ) {
+      return;
+    }
+
+    startX = event.clientX;
+    startY = event.clientY;
+    isDragging = true;
+  });
+
+  bookStage.addEventListener("pointerup", (event) => {
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    const deltaX = event.clientX - startX;
+    const deltaY = event.clientY - startY;
+
+    // ต้องปัดแนวนอนอย่างน้อย 45 พิกเซล
+    // และไม่ใช่การเลื่อนแนวตั้งเป็นหลัก
+    if (
+      Math.abs(deltaX) < 45 ||
+      Math.abs(deltaX) <= Math.abs(deltaY)
+    ) {
+      return;
+    }
+
+    // ปัดซ้าย = หน้าถัดไป
+    if (deltaX < 0 && currentPage < pages.length - 1) {
+      currentPage++;
+      updateBook();
+    }
+
+    // ปัดขวา = ย้อนกลับ
+    if (deltaX > 0 && currentPage > 0) {
+      currentPage--;
+      updateBook();
+    }
+  });
+
+  bookStage.addEventListener("pointercancel", () => {
+    isDragging = false;
+  });
+
+  bookStage.addEventListener("lostpointercapture", () => {
+    isDragging = false;
+  });
+}
 
 // ล็อกหนังสืออีกครั้ง
 lockAgainButton.addEventListener("click", () => {
@@ -166,4 +179,5 @@ lockAgainButton.addEventListener("click", () => {
   passwordInput.focus();
 });
 
+// เริ่มต้นที่ปกหน้า
 updateBook();
