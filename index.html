@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#081225">
+  <title>ເຖິງແມວ 🐱</title>
+
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/font_lao.css">
+
+
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <span class="moon"></span>
+    <span class="star star-one">✦</span>
+    <span class="star star-two">✧</span>
+    <span class="star star-three">✦</span>
+    <span class="star star-four">·</span>
+    <span class="star star-five">✧</span>
+  </div>
+
+  <main>
+    <section id="lockScreen" class="lock-screen">
+      <div class="lock-card">
+        <div class="lock-moon">☾</div>
+        <p class="eyebrow"></p>
+        <h1>ເຖິງ ນາງ ທິບພາພອນນ<br> ຫຼື ແມວ 🐱 </h1>
+        <p class="lock-copy">ເຂົາມີຈົດໝາຍໃຫ້ເພິ່ນອ່ານນະງັບ<br>ໃສ່ລະຫັດເພື່ອເປິດນະລອງເດົາດູສິ 🌙</p>
+        <form id="passwordForm">
+          <label for="passwordInput">ລະຫັດຜ່ານ</label>
+          <input id="passwordInput" type="password" placeholder="ໃສ່ລະຫັດ " autocomplete="off" required>
+          <button type="submit" class="button primary">ເປິດໜັງສື ✦</button>
+          <p id="passwordMessage" class="password-message" aria-live="polite"></p>
+        </form>
+        <p class="tiny-note">ໜັງສືຫົວນ້ອຍໆທີ່ຂຽນຈາກໃຈ</p>
+      </div>
+    </section>
+
+    <section id="bookScreen" class="book-screen hidden">
+      <header class="book-heading">
+        <p class="eyebrow">A LETTER FOR Meow 🐱</p>
+        <h1>ເລື່ອງລາວໃຕ້ແສງຈັນ</h1>
+        <p>ຄ່ອຍໆ ອ່ານເທື່ອລະໜ້ານະງັບ</p>
+      </header>
+
+      <div class="book-stage">
+        <div class="book" id="book">
+          <article class="page page-cover" data-page="0">
+            <div class="page-content cover-content">
+              <div class="cover-moon">☾</div>
+              <p class="eyebrow">A LITTLE BOOK OF FEELINGS</p>
+              <h2>ถึงคนคนหนึ่ง</h2>
+              <p>คนที่ทำให้วันธรรมดา<br>มีความหมายขึ้นมา</p>
+              <span class="cover-flourish">✦ · ✧ · ✦</span>
+              
+            </div>
+          </article>
+
+          <article class="page" data-page="1">
+            <div class="page-content">
+              <p class="chapter">บทที่ 01</p>
+              <h2>เรื่องราวของเรา</h2>
+              <div class="paper-rule"></div>
+              <p>เราไม่รู้หรอกว่าเรื่องราวของเราจะเดินทางไปถึงตรงไหน แต่เราดีใจที่ครั้งหนึ่งเราได้เริ่มคุยกัน</p>
+              <p>มีช่วงเวลาธรรมดาหลายอย่างที่กลายเป็นความทรงจำดี ๆ สำหรับเรา ขอบคุณที่เข้ามาเป็นส่วนหนึ่งในวันของเรานะ</p>
+              <p class="edit-hint">✎ ตรงนี้คุณสามารถเพิ่มวันแรกที่เริ่มคุยกัน หรือความทรงจำที่มีร่วมกันได้</p>
+              <p class="page-number">01</p>
+            </div>
+          </article>
+
+          <article class="page" data-page="2">
+            <div class="page-content">
+              <p class="chapter">บทที่ 02</p>
+              <h2>จดหมายจากผมถึงเธอ</h2>
+              <div class="paper-rule"></div>
+              <p>เธอรู้ไหม เราดีใจมากนะที่ได้รู้จักเธอ เราไม่รู้ว่าตอนนี้เธอรู้สึกยังไง แต่ความรู้สึกดี ๆ ที่เรามีให้เธอนั้นจริงใจเสมอ</p>
+              <p>ขอบคุณที่ทำให้เราอยากเติบโต อยากเรียนรู้ และอยากเป็นตัวเองในเวอร์ชันที่ดีขึ้น</p>
+              <p>เราไม่ได้เขียนจดหมายนี้เพื่อให้เธอต้องตอบรับอะไร แค่อยากให้เธอได้รู้ว่าเธอมีความหมายกับเรามากแค่ไหน</p>
+              <p class="page-number">02</p>
+            </div>
+          </article>
+
+          <article class="page" data-page="3">
+            <div class="page-content">
+              <p class="chapter">บทที่ 03</p>
+              <h2>เพลงที่มีความหมาย</h2>
+              <div class="paper-rule"></div>
+              <p>บางครั้งเพลงก็พูดแทนความรู้สึกที่เราอธิบายไม่เก่งได้</p>
+              <div class="music-placeholder">
+  <span class="music-note">♫</span>
+  <strong>เพลงที่ทำให้นึกถึงเธอ ♡</strong>
+  <p>เพลงนี้อยากให้เธอลองฟังนะ 🌙</p>
+
+  <div class="music-player">
+  <iframe
+    id="musicFrame"
+    src=""
+    title="เพลงที่มีความหมาย"
+    allow="encrypted-media; picture-in-picture"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</div>
+
+  <p class="music-caption">♡ ขอให้เพลงนี้พูดแทนความรู้สึกของเรา</p>
+</div>
+              <p class="edit-hint">เลือกเพลงที่มีความหมายกับคุณ และใช้ลิงก์จากแหล่งทางการนะ</p>
+              <p class="page-number">03</p>
+            </div>
+          </article>
+
+          <article class="page" data-page="4">
+            <div class="page-content">
+              <p class="chapter">บทที่ 04</p>
+              <h2>สิ่งที่อยากบอกในตอนจบ</h2>
+              <div class="paper-rule"></div>
+              <p>ไม่ว่าเธอจะรู้สึกเหมือนเราหรือไม่ เราก็เคารพความรู้สึกของเธอนะ</p>
+              <p>เราไม่ได้คาดหวังให้เธอต้องมีคำตอบในทันที แค่อยากขอบคุณที่เราได้รู้จักกัน และได้มีช่วงเวลาดี ๆ ร่วมกัน</p>
+              <p>ขอให้เธอมีความสุข ดูแลตัวเองดี ๆ และไม่ว่าจะเกิดอะไรขึ้น เราก็หวังดีกับเธอเสมอ</p>
+              <p class="signature">จากใจของเรา <span>♡</span></p>
+              <p class="page-number">04</p>
+            </div>
+          </article>
+
+          <article class="page page-back" data-page="5">
+            <div class="page-content back-content">
+              <div class="cover-moon">☾</div>
+              <h2>ขอบคุณที่อ่าน<br>จนถึงหน้าสุดท้าย</h2>
+              <p>ขอให้คืนนี้ใจดีกับเธอนะ</p>
+              <span class="cover-flourish">✦ · ✧ · ✦</span>
+              <p class="page-number">ปกหลัง</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <nav class="book-controls" aria-label="ควบคุมการเปิดหนังสือ">
+        <button id="prevPage" class="button secondary" disabled>← ໜ້າກ່ອນ</button>
+        <button id="nextPage" class="button primary">ໜ້າຖັດໄປ →</button>
+      </nav>
+      <button id="lockAgain" class="text-button">ปิดหนังสือและล็อกอีกครั้ง</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
